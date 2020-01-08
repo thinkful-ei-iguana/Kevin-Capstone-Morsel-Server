@@ -66,8 +66,14 @@ recipeRouter
       })
 
     RecipeService.patchRecipeById(
-      //pick back up here
+      req.app.get('db'),
+      req.params.id,
+      recipeToUpdate
     )
+      .then(numRowsAffected => {
+        res.status(204).end();
+      })
+      .catch(next);
   })
 
 async function checkRecipeExists(req, res, next) {
